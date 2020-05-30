@@ -1,0 +1,17 @@
+#map-template {
+    width: 84vw;
+    height: 60vh;
+}
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.route-items {
+    position: relative;
+    right: 0;
+    left: 0;
+}
