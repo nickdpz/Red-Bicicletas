@@ -31,11 +31,4 @@ Bicicleta.removeById = (aBiciId) => {
     Bicicleta.allBicis.splice(aBici, 1);
 }
 
-
-let a = new Bicicleta(1, 'rojo', 'urbana', [48.998, -74.839]);
-let b = new Bicicleta(2, 'blanca', 'urbana', [48.398, -74.339]);
-
-Bicicleta.add(a);
-Bicicleta.add(b);
-
 module.exports = Bicicleta;
