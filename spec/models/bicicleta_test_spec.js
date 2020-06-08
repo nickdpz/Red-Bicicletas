@@ -1,27 +1,31 @@
 const database = require('../../db');
-const Bicicleta = require('../../models/bicicleta');
+const server = require('../../bin/www');
+const database = require('../../db');
 
-describe('Testing Bicicletas', () =>{
-    beforeEach(function (done) {
+describe('Testing Bicicletas', () => {
+    beforeEach(async (done) => {
         Bicicleta.allBicis = [];
-        database(done);
+        await database();
+        done();
     });
-
-    afterEach((done) =>{
-        Bicicleta.deleteMany({},(err, success) =>{
-            if (err) console.log(err);
-            done();
-        });
+    afterEach(async (done) => {
+        try {
+            await Bicicleta.deleteMany({})
+            done()
+        }
+        catch (e) {
+            console.log(err)
+        }
     });
 
     describe('Bicicleta.createInstance', () => {
         it('crea una instancia de Bicicleta', () => {
-            var bici = Bicicleta.createInstance(1, "verde", "BMX", [6.1846099, -75.5991287]);
+            let bici = Bicicleta.createInstance(1, "verde", "BMX", [49.1846099, -75.5991287]);
 
             expect(bici.code).toBe(1);
             expect(bici.color).toBe("verde");
             expect(bici.modelo).toBe("BMX");
-            expect(bici.ubicacion[0]).toEqual(6.1846099);
+            expect(bici.ubicacion[0]).toEqual(49.1846099);
             expect(bici.ubicacion[1]).toEqual(-75.5991287);
         })
     });
