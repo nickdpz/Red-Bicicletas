@@ -11,19 +11,17 @@ usuarioSchema.methods.reservar = function (biciId, desde, hasta, cb) {
     reserva.save(cb);
 }
 
-usuarioSchema.methods.reserva = function (userId) {
+usuarioSchema.statics.reserva = function (userId) {
     return new Promise(async (resolve, reject) => {
-        const reservas = await Reserva.find({});
-        resolve(reservas);
-        // Reserva.find({})
-        //     .populate('bicicleta')
-        //     .populate('usuario')
-        //     .exec((err, reservas) => {
-        //         resolve(reservas);
-        //     })
-        //     .catch((e)=>{
-        //         reject(e)
-        //     })
+        Reserva.find({ usuario: userId })
+            .populate('bicicleta')
+            .populate('usuario')
+            .exec((err, reservas) => {
+                if (err) {
+                    reject(e)
+                }
+                resolve(reservas);
+            })
     })
 }
 

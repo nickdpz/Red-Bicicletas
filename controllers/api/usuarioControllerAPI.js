@@ -17,8 +17,8 @@ exports.usuarios_create = (req, res) => {
     });
 }
 
-exports.usuarios_reserva = async()=>{
-    const reserva = await Usuario.reserva(req.params.id);
+exports.usuario_reserva = async(req, res)=>{
+    const reserva = await Usuario.reserva(req.query.id);
     res.status(200).send(reserva);
 }
 
