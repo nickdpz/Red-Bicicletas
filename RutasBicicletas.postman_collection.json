@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "6e6db8e7-4b72-4ba7-b982-3be724a6233e",
+		"name": "RutasBicicletas",
+		"description": "API para el curso de cursera",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Nuevo Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Nicolas",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ndpastranzamora@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "passwork",
+									"value": "contraseña",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/usuarios/create",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"usuarios",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reservar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "bici_id",
+									"value": "5ede77938b04ee16103071c8",
+									"type": "text"
+								},
+								{
+									"key": "desde",
+									"value": "'2020-10-12'",
+									"type": "text"
+								},
+								{
+									"key": "hasta",
+									"value": "'2020-10-17'",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "5ede76bb8b04ee16103071c7",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/usuarios/reservar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"usuarios",
+								"reservar"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "lon",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reserva",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/usuarios/reserva/?id=5ede76bb8b04ee16103071c7",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"usuarios",
+								"reserva",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5ede76bb8b04ee16103071c7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Bicicletas",
+			"item": [
+				{
+					"name": "Obtener Bicicletas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/bicicletas/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bicicletas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Bicicletas",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/bicicletas/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bicicletas",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Bici",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "lat",
+									"value": "4.63136",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "-74.15437",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "Purpura",
+									"type": "text"
+								},
+								{
+									"key": "modelo",
+									"value": "urbana",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/bicicletas/create",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bicicletas",
+								"create"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "lon",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Bici",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "lat",
+									"value": "4.63136",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "-74.15437",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "9",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "Dorada",
+									"type": "text"
+								},
+								{
+									"key": "modelo",
+									"value": "urbana",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/bicicletas/update",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bicicletas",
+								"update"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "lon",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4ccde86d-ad82-4bd9-b3b6-00d239626e10",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffa2424b-ef3d-42c1-8610-819329a5f8d4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
