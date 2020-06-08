@@ -1,6 +1,6 @@
 const database = require('../../db');
 const server = require('../../bin/www');
-const database = require('../../db');
+const Bicicleta = require('../../models/bicicleta');
 
 describe('Testing Bicicletas', () => {
     beforeEach(async (done) => {
