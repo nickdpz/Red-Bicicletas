@@ -17,12 +17,15 @@ exports.usuarios_create = (req, res) => {
     });
 }
 
-exports.usuario_reservar = (req, res) => {
-    Usuario.findById(req.body.id, (err, usuario) => {
-        console.log(usuario);
-        usuario.reservar(req.body.bici_id, req.body.desde, req.body.hasta, (err) => {
-            console.log('reserva !!!!');
-            res.status(200).send();
-        });
+exports.usuarios_reserva = async()=>{
+    const reserva = await Usuario.reserva(req.params.id);
+    res.status(200).send(reserva);
+}
+
+exports.usuario_reservar = async(req, res) => {
+    const user = await Usuario.findById(req.body.id)
+    console.log(user);
+    user.reservar(req.body.bici_id, req.body.desde, req.body.hasta, (err) => {
+        res.status(200).send({message:"ok"});
     });
 }

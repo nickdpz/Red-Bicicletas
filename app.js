@@ -30,7 +30,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/bicicletas',bicicletasRouter)
 app.use('/api/bicicletas', bicicletasAPIRouter)
-app.use('/api/usuarioss', usuariosAPIRouter);
+app.use('/api/usuarios', usuariosAPIRouter);
 
 
 // catch 404 and forward to error handler
