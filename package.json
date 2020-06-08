@@ -6,13 +6,16 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "test": "jasmine",
-    "test:model:bike": "jasmine spec/models/bicicleta_test_spec.js"
+    "test:model:bike": "jasmine spec/models/bicicleta_test_spec.js",
+    "test:api:bike": "jasmine spec/api/bicicleta_api_test_spec.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "mongoose": "^5.9.18",
     "morgan": "~1.9.1",
     "request": "^2.88.2"
   },
