@@ -11,6 +11,8 @@
     "test:api:bike": "jasmine spec/api/bicicleta_api_test_spec.js"
   },
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "clean-css": ">=4.1.11",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
@@ -19,8 +21,7 @@
     "moment": "^2.26.0",
     "mongoose": "^5.9.18",
     "morgan": "~1.9.1",
-    "request": "^2.88.2",
-    "clean-css": ">=4.1.11"
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "pug": "^3.0.0"
