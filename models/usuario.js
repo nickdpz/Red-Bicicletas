@@ -40,7 +40,7 @@ const usuarioSchema = new Schema({
 });
 
 usuarioSchema.pre('save', function (next) {
-    if(this.isModified('password')){
+    if (this.isModified('password')) {
         this.password = bcrypt.hashSync(this.password, saltRounds);
     }
     next();
@@ -50,7 +50,7 @@ usuarioSchema.methods.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 }
 
-usuarioSchema.methods.reservar = function(biciId, desde, hasta, cb){
+usuarioSchema.methods.reservar = function (biciId, desde, hasta, cb) {
     const reserva = new Reserva({ usuario: this._id, bicicleta: biciId, desde: desde, hasta: hasta });
     reserva.save(cb);
 }
@@ -69,29 +69,53 @@ usuarioSchema.statics.reserva = (userId) => {
     })
 }
 
-usuarioSchema.methods.enviar_email_bienvenida = function(cb){
+usuarioSchema.methods.enviar_email_bienvenida = function (cb) {
     const token = new Token({
         _userId: this.id,
         token: crypto.randomBytes(16).toString("hex"),
     });
     const email_destination = this.email;
-    token.save()
-        .then(() => {
-            const mailOptions = {
-                //from: (process.env.ENVIRONMENT == "production") ? process.env.USER_NAME_DEV : process.env.USER_NAME,
-                from: 'jett.jerde53@ethereal.email',
-                to: email_destination,
-                subject: "Verificación de cuenta",
-                text: `Por favor, verifica tu cuenta haciendo clic en el siguiente link \n process.env.URL/token/confirmation/${token.token}`,
-            };
+    token.save(function (err) {
+        if (err) return console.log(err.message);
 
-            mailer.sendMail(mailOptions)
-                .then(() => {
-                    console.log(`Correo de verificación enviado a: ${email_destination}`);
-                })
-                .catch(err => {console.log(err.message)});
-        })
-        .catch((err) => {console.log(err.message)});
+        const mailOptions = {
+            from: "noreply@redbicicletas.com",
+            to: email_destination,
+            subject: "Verificación de cuenta",
+            text: `Por favor, verifica tu cuenta haciendo clic en el siguiente link \n http://localhost:3000/token/confirmation/${token.token}`,
+        };
+
+        mailer.sendMail(mailOptions, function (err) {
+            if (err) return console.log(err.message);
+            console.log(`Correo de verificación enviado a: ${email_destination}`);
+        });
+    });
+};
+usuarioSchema.methods.resetPassword = function (cb) {
+    const token = new Token({
+        _userId: this.id,
+        token: crypto.randomBytes(16).toString("hex"),
+    });
+    const email_destination = this.email;
+    token.save(function (err) {
+        if (err) return cb(err);
+
+        const mailOptions = {
+            from: "noreply@redbicicletas.com",
+            to: email_destination,
+            subject: "Reseteo de contraseña",
+            text: `Para resetear su constraseña haz clic en el siguiente link \n
+        http://localhost:3000/resetPassword/${token.token}`,
+        };
+
+        mailer.sendMail(mailOptions, function (err) {
+            if (err) return cb(err);
+            console.log(
+                `Correo de reseteo de contraseña enviado a: ${email_destination}`
+            );
+        });
+        cb(null);
+    });
 };
 
 module.exports = mongoose.model('Usuario', usuarioSchema);

@@ -12,24 +12,21 @@ passport.use(
                     return done(null, false, { message: "La contraseña es incorrecta" });
                 return done(null, usuario);
             })
-            .catch((e) => {
+            .catch((err) => {
+                console.log(err);
                 return done(err);
             })
     })
 );
 
-passport.serializeUser((user, cb) => {
-    cb(null, user.id);
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
 });
 
-passport.deserializeUser((id, cb) => {
-    Usuario.findById(id)
-        .then((err, usuario) => {
-            cb(usuario);
-        })
-        .catch((err) => {
-            cb(err);
-        })
+passport.deserializeUser(async (id, done) => {
+    const user = await Usuario.findById(id);
+    done(null, user);
 });
 
 module.exports = passport;
