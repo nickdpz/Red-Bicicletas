@@ -31,6 +31,10 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
+router.get("/forgotPassword", (req, res) => {
+  res.render("session/forgotPassword");
+});
+
 
 router.post("/forgotPassword", (req, res, next) => {
   const { email } = req.body;
@@ -78,7 +82,7 @@ router.post("/resetPassword", (req, res) => {
     return;
   }
   Usuario.findOne({ email })
-    .then((err, usuario) => {
+    .then((usuario) => {
       usuario.password = password;
       usuario.save()
         .then(() => {

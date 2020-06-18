@@ -18,7 +18,7 @@ const app = express();
 
 const store = new session.MemoryStore;
 app.use(session({
-  cookie: {maxAge: 240 * 60 * 60 * 1000},
+  cookie: { maxAge: 240 * 60 * 60 * 1000 },
   store: store,
   saveUninitialized: true,
   resave: true,
@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/usuarios', usersRouter);
-app.use('/bicicletas', bicicletasRouter)
+app.use('/bicicletas', loggedIn, bicicletasRouter)
 app.use('/api/bicicletas', bicicletasAPIRouter)
 app.use('/api/usuarios', usuariosAPIRouter);
 
@@ -62,5 +62,14 @@ app.use((err, req, res, next) => {
 });
 
 app.use(cookieParser());
+
+function loggedIn(req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    console.log('Usuario sin loguearse');
+    res.redirect('/login');
+  }
+}
 
 module.exports = app;
