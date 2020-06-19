@@ -17,6 +17,7 @@ const usuariosAPIRouter = require('./routes/api/usuarios');
 
 const app = express();
 
+app.set('secretKey', 'jwt_pwd_!!223344')
 const store = new session.MemoryStore;
 app.use(session({
   cookie: { maxAge: 240 * 60 * 60 * 1000 },
@@ -42,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/usuarios', usersRouter);
 app.use('/bicicletas', loggedIn, bicicletasRouter)
-app.use('/api/bicicletas',validarUsuario ,bicicletasAPIRouter)
+app.use('/api/bicicletas', validarUsuario, bicicletasAPIRouter)
 app.use('/api/usuarios', usuariosAPIRouter);
 
 
