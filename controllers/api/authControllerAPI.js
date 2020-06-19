@@ -3,13 +3,10 @@ const jwt = require("jsonwebtoken");
 const Usuario = require("../../models/usuario");
 
 module.exports = {
-    authenticate: function (req, res, next) {
+    authenticate: (req, res, next) => {
         const { email, password } = req.body;
-        Usuario.findOne({ email }, (err, userInfo) => {
-
-            if (err) next(err);
-            else {
-
+        Usuario.findOne({ email })
+            .then((userInfo) => {
                 if (userInfo === null) { return res.status(401).json({ status: "error", message: "Usuario inválido", data: null }); }
 
                 if (userInfo !== null && bcrypt.compareSync(password, userInfo.password)) {
@@ -30,11 +27,12 @@ module.exports = {
                     });
 
                 }
-            }
-        });
+            }).catch((err) => {
+                next(err);
+            })
     },
 
-    forgotPassword: (req, res, next) =>{
+    forgotPassword: (req, res, next) => {
         const { email } = req.body;
 
         Usuario.findOne({ email }, function (err, userInfo) {

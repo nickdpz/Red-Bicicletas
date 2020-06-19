@@ -14,6 +14,7 @@ const usersRouter = require('./routes/users');
 const bicicletasAPIRouter = require('./routes/api/bicicletas')
 const bicicletasRouter = require('./routes/bicicletas')
 const usuariosAPIRouter = require('./routes/api/usuarios');
+const authAPIRouter = require('./routes/api/auth');
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/usuarios', usersRouter);
 app.use('/bicicletas', loggedIn, bicicletasRouter)
+app.use('/api/auth', authAPIRouter);
 app.use('/api/bicicletas', validarUsuario, bicicletasAPIRouter)
 app.use('/api/usuarios', usuariosAPIRouter);
 
