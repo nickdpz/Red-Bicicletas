@@ -7,6 +7,7 @@ const logger = require('morgan');
 const database = require('./db');
 const passport = require('./config/passport');
 const session = require('express-session');
+const jwt = require('jsonwebtoken');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -41,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/usuarios', usersRouter);
 app.use('/bicicletas', loggedIn, bicicletasRouter)
-app.use('/api/bicicletas', bicicletasAPIRouter)
+app.use('/api/bicicletas',validarUsuario ,bicicletasAPIRouter)
 app.use('/api/usuarios', usuariosAPIRouter);
 
 
@@ -70,6 +71,20 @@ function loggedIn(req, res, next) {
     console.log('Usuario sin loguearse');
     res.redirect('/login');
   }
+}
+
+function validarUsuario(req, res, next) {
+  jwt.verify(req.headers["x-access-token"], req.app.get('secretKey'), function (
+    err,
+    decoded
+  ) {
+    if (err) res.json({ status: "error", message: err.message, data: null });
+    else {
+      req.body.userId = decoded.id;
+      console.log("jwt-verify", decoded);
+      next();
+    }
+  });
 }
 
 module.exports = app;
