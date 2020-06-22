@@ -28,9 +28,9 @@ app.use(session({
   secret: 'red_bicicletas'
 }))
 // view engine setup
+app.engine('pug', require('pug').__express)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.engine('pug', require('pug').__express)
 
 database();
 app.use(logger('dev'));
