@@ -11,7 +11,6 @@ if (process.env.NODE_ENV === "production") {
             pass: process.env.USER_PASSWORD
         }
     };
-    mailConfig = sgTransport(options);
 } else {
         mailConfig = {
             host: "smtp.ethereal.email",

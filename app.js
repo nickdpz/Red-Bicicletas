@@ -58,7 +58,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = process.env.ENVIRONMENT === 'DEV' ? err : {};
+  res.locals.error = process.env.ENVIRONMENT === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
@@ -77,10 +77,7 @@ function loggedIn(req, res, next) {
 }
 
 function validarUsuario(req, res, next) {
-  jwt.verify(req.headers["x-access-token"], req.app.get('secretKey'), function (
-    err,
-    decoded
-  ) {
+  jwt.verify(req.headers["x-access-token"], req.app.get('secretKey'), (err, decoded) => {
     if (err) res.json({ status: "error", message: err.message, data: null });
     else {
       req.body.userId = decoded.id;
