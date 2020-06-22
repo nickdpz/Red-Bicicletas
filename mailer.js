@@ -4,7 +4,7 @@ let mailConfig;
 
 if (process.env.NODE_ENV === "production") {
     mailConfig = {
-        host: 'smtp.sendgrid.net',
+        host: 'smtp.ethereal.email',
         port: 587,
         auth: {
             user: process.env.USER_NAME,
