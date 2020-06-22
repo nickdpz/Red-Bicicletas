@@ -15,11 +15,27 @@ const bicicletasAPIRouter = require('./routes/api/bicicletas')
 const bicicletasRouter = require('./routes/bicicletas')
 const usuariosAPIRouter = require('./routes/api/usuarios');
 const authAPIRouter = require('./routes/api/auth');
+const authGoogle = require('./routes/google');
+const mongoDBStore = require('connect-mongodb-session')(session);
 
 const app = express();
 
 app.set('secretKey', 'jwt_pwd_!!223344')
-const store = new session.MemoryStore;
+
+let store;
+if (process.env.NODE_ENV === "development") {
+  store = new session.MemoryStore;
+} else {
+  store = new mongoDBStore({
+    uri: process.env.MONGO_URI,
+    collection: 'sessions'
+  });
+  store.on('error', (error) => {
+    assert.ifError(error);
+    assert.ok(false);
+  })
+}
+
 app.use(session({
   cookie: { maxAge: 240 * 60 * 60 * 1000 },
   store: store,
@@ -28,7 +44,7 @@ app.use(session({
   secret: 'red_bicicletas'
 }))
 // view engine setup
-app.engine('pug', require('pug').__express)
+//app.engine('pug', require('pug').__express)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -47,6 +63,7 @@ app.use('/bicicletas', loggedIn, bicicletasRouter)
 app.use('/api/auth', authAPIRouter);
 app.use('/api/bicicletas', validarUsuario, bicicletasAPIRouter)
 app.use('/api/usuarios', usuariosAPIRouter);
+app.use('/auth/google', authGoogle);
 
 app.use('/privacy_policy', (req, res) => {
   res.sendFile('public/privacy_policy.html');

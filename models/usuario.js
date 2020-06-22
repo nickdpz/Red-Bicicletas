@@ -118,4 +118,77 @@ usuarioSchema.methods.resetPassword = function (cb) {
     });
 };
 
+usuarioSchema.statics.findOneOrCreateByGoogle = function findOrCreate(condition, callback) {
+    const self = this;
+    console.log(condition);
+    self.findOne({
+        $or: [
+            { 'googleId': condition.id }, { 'email': condition.emails[0].value }
+        ]
+    }).then((result) => {
+        if (result) {
+            callback(result);
+        } else {
+            console.log('---------------- CONDITION ------------------');
+            console.log(condition);
+            var values = {}
+            values.googleId = condition.id;
+            values.email = condition.emails[0].value;
+            values.nombre = condition.displayName || 'NAMELESS';
+            values.verificado = true;
+            values.password = condition.id;
+            console.log('---------------- VALUES----------------------');
+            console.log(values);
+
+            self.create(values)
+                .then((result) => {
+                    return callback(err, result);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    }).catch((err) => {
+        callback(err);
+        console.error(err);
+    })
+}
+
+usuarioSchema.statics.findOneOrCreateByFacebook = function findOneOrCreate(condition, callback) {
+    const self = this;
+    console.log(condition);
+    self.findOne({
+        $or: [
+            { 'facebookId': condition.id }, { 'email': condition.emails[0].value }
+        ]
+    }).then((result) => {
+        if (result) {
+            callback(result)
+        } else {
+            console.log('-------Condition--------');
+            console.log(condition);
+            let values = {};
+            values.facebookId = condition.id;
+            values.email = condition.emails[0].value;
+            values.nombre = condition.displayName || 'Sin Nombre';
+            values.verificado = true;
+            values.password = crypto.randomBytes(16).toString('hex');
+            console.log('-------Values------');
+            console.log(values)
+            self.create(values)
+                .then((result) => {
+                    return callback(err, result);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    }).catch((err) => {
+        callback(err);
+        console.error(err);
+    })
+}
+
+
+
 module.exports = mongoose.model('Usuario', usuarioSchema);
