@@ -10,9 +10,14 @@ const connect = async () => {
 }
 
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', () =>{
-    console.log('[db] DB is connected');
+
+db.on('error', () => {
+  db.close();
+  console.error.bind(console, 'connection error')
+});
+
+db.once('open', () => {
+  console.log('[db] DB is connected');
 });
 
 module.exports = connect;

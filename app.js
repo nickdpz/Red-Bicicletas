@@ -1,4 +1,6 @@
+require('newrelic');
 require('dotenv').config();
+const assert = require('assert');
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -27,7 +29,7 @@ if (process.env.NODE_ENV === "development") {
   store = new session.MemoryStore;
 } else {
   store = new mongoDBStore({
-    uri: process.env.MONGO_URI,
+    uri: process.env.MONGODB_URL,
     collection: 'sessions'
   });
   store.on('error', (error) => {
