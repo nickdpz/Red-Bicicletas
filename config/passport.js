@@ -36,22 +36,22 @@ passport.use(
     )
 );
 
-passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_ID,
-    clientSecret: process.env.FACEBOOK_SECRET
-}, (accessToken, refreshToken, profile, done) => {
-    try {
-        Usuario.findOneOrCreateByFacebook(profile, (err, user) => {
-            if (err) console.log('err' + err);
-            return done(err, user);
-        });
-    }
-    catch (err2) {
-        console.log(err2);
-        return done(err2, null);
-    }
-}
-));
+// passport.use(new FacebookStrategy({
+//     clientID: process.env.FACEBOOK_ID,
+//     clientSecret: process.env.FACEBOOK_SECRET
+// }, (accessToken, refreshToken, profile, done) => {
+//     try {
+//         Usuario.findOneOrCreateByFacebook(profile, (err, user) => {
+//             if (err) console.log('err' + err);
+//             return done(err, user);
+//         });
+//     }
+//     catch (err2) {
+//         console.log(err2);
+//         return done(err2, null);
+//     }
+// }
+// ));
 
 
 

@@ -1,6 +1,6 @@
-const express = require ('express');
+const express = require('express');
 const router = express.Router();
-const passport = require('./config/passport');
+const passport = require('../config/passport');
 
 router.get(
     "/",
@@ -21,3 +21,5 @@ router.get(
         failureRedirect: "/error,",
     })
 );
+
+module.exports = router;
