@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const Usuario = require('../models/usuario');
+const path = require('path');
 /* GET home page. */
 router.get('/', (req, res, next) => {
   res.render('index', { title: 'Red de bicicletas' });
@@ -95,6 +96,10 @@ router.post("/resetPassword", (req, res) => {
         usuario: new Usuario({ email }),
       });
     })
+});
+
+router.get('/privacy_policy', (req, res) => {
+  res.sendFile('public/privacy_policy.html', { root: '.' })
 });
 
 

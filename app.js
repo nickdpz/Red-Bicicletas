@@ -67,9 +67,6 @@ app.use('/api/bicicletas', validarUsuario, bicicletasAPIRouter)
 app.use('/api/usuarios', usuariosAPIRouter);
 app.use('/auth/google', authGoogle);
 
-app.use('/privacy_policy', (req, res) => {
-  res.sendFile('public/privacy_policy.html');
-});
 
 app.use('/google1835d77db8b8ef7e', (req, res) => {
   res.sendFile('google1835d77db8b8ef7e.html');
