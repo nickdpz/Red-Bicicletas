@@ -35,11 +35,10 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/api/usuarios/create",
+							"raw": "{{url}}/api/usuarios/create",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"usuarios",
@@ -80,11 +79,10 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/api/usuarios/reservar",
+							"raw": "{{url}}/api/usuarios/reservar",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"usuarios",
@@ -112,11 +110,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/usuarios/reserva/?id=5ede76bb8b04ee16103071c7",
+							"raw": "{{url}}/api/usuarios/reserva/?id=5ede76bb8b04ee16103071c7",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"usuarios",
@@ -143,13 +140,18 @@
 					"name": "Obtener Bicicletas",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWNlYWU5ZWFkMzYxMjgyOGQ3NTBiNiIsImlhdCI6MTU5MjU4NDk1MywiZXhwIjoxNTkzMTg5NzUzfQ.OyGpzskjcPlgTHoHxygZmpfCdBvH9BCqTOkTYVzdKm8",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "localhost:3000/api/bicicletas/",
+							"raw": "{{url}}/api/bicicletas/",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"bicicletas",
@@ -175,11 +177,10 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/api/bicicletas/delete",
+							"raw": "{{url}}/api/bicicletas/delete",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"bicicletas",
@@ -225,11 +226,10 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/api/bicicletas/create",
+							"raw": "{{url}}/api/bicicletas/create",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"bicicletas",
@@ -287,11 +287,10 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/api/bicicletas/update",
+							"raw": "{{url}}/api/bicicletas/update",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"bicicletas",
@@ -357,15 +356,43 @@
 							"raw": "{\r\n    \"email\":\"ndpastranzamora@gmail.com\",\r\n    \"password\":\"123\"\r\n}"
 						},
 						"url": {
-							"raw": "localhost:3000/api/auth/authenticate",
+							"raw": "{{url}}/api/auth/authenticate",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"auth",
 								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Token Facebook",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"access_token\":\"EAAQ4JL5sePABANLbtZCEcTIDf9PUbliVyCcu33fsIuS7GwmTZCry7psXdNvzPu5Gh0v5hoZAtDLWzvhEyoYZBqEPyaCudZBSAb81qr1QUgLQVdZAVccx1nOyJq3KjPnP0VgHZCf0I7n4WLhXdg6v7pllNWT6ZCAb4GABGEZCd51KwMxVrXBqZCnBhaF9fqdLbtfer4a8EWbqGZCdAZDZD\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/facebook_token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"facebook_token"
 							]
 						}
 					},
