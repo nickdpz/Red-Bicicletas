@@ -19,7 +19,7 @@ describe('Testing Bicicletas', () => {
     });
 
     describe('Bicicleta.createInstance', () => {
-        it('crea una instancia de Bicicleta', () => {
+        it('crea una instancia de Bicicleta', (done) => {
             let bici = Bicicleta.createInstance(1, "verde", "BMX", [49.1846099, -75.5991287]);
 
             expect(bici.code).toBe(1);
@@ -27,15 +27,17 @@ describe('Testing Bicicletas', () => {
             expect(bici.modelo).toBe("BMX");
             expect(bici.ubicacion[0]).toEqual(49.1846099);
             expect(bici.ubicacion[1]).toEqual(-75.5991287);
+            done();
         })
     });
 
     describe('Bicicletas.allBicis', () => {
         it('Comienza vacía', (done) => {
-            Bicicleta.find({}, function (err, bicis) {
-                expect(bicis.length).toBe(0);
-                done();
-            })
+            Bicicleta.find({})
+                .then((bicis) => {
+                    expect(bicis.length).toBe(0);
+                    done();
+                })
         });
     });
 
@@ -47,7 +49,6 @@ describe('Testing Bicicletas', () => {
                 Bicicleta.find({}, function (err, bicis) {
                     expect(bicis.length).toEqual(1);
                     expect(bicis[0].code).toBe(aBici.code)
-
                     done();
                 });
             });
@@ -83,20 +84,23 @@ describe('Testing Bicicletas', () => {
             Bicicleta.find({}, (err, bicis) => {
                 expect(bicis.length).toBe(0);
 
-                var aBici = new Bicicleta({ code: 1, color: 'violeta', modelo: 'montaña' });
+                let aBici = new Bicicleta({ code: 1, color: 'violeta', modelo: 'montaña' });
                 Bicicleta.add(aBici, function (err, newBici) {
                     if (err) console.log(err);
 
-                    var aBici2 = new Bicicleta({ code: 2, color: 'rojo', modelo: 'urbana' });
+                    let aBici2 = new Bicicleta({ code: 2, color: 'rojo', modelo: 'urbana' });
                     Bicicleta.add(aBici2, function (err, newBici) {
                         if (err) console.log(err);
-                        Bicicleta.removeByCode(1, function (errr, targetBici) {
-                            if (errr) console.log(errr);
-                            Bicicleta.find({}, (error, bicis) => {
-                                expect(bicis.length).toBe(1);
-                                done();
-                            });
-                        });
+                        Bicicleta.removeByCode(1).
+                            then((targetBici) => {
+                                Bicicleta.find({})
+                                    .then((bicis) => {
+                                        expect(bicis.length).toBe(1);
+                                        done();
+                                    });
+                            }).catch((err) => {
+                                console.log(err);
+                            })
                     });
                 });
             });
