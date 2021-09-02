@@ -41,6 +41,6 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "pug": "^3.0.0"
+    "pug": "^3.0.1"
   }
 }
